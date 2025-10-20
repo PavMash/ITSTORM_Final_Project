@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Final Project"
 include(":app")
+include(":core_domain")
+include(":core_data")

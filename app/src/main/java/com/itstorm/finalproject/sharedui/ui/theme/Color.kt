@@ -1,4 +1,4 @@
-package com.itstorm.finalproject.ui.theme
+package com.itstorm.finalproject.sharedui.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
