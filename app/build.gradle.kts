@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.itstorm.finalproject"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.itstorm.finalproject"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -34,7 +34,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -65,6 +65,8 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
+    implementation(project(":core_domain"))
+    implementation(project(":core_data"))
     ksp(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

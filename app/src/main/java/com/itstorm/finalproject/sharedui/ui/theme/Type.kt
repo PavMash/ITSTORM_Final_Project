@@ -2,9 +2,11 @@ package com.itstorm.finalproject.sharedui.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.itstorm.finalproject.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -31,4 +33,10 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val robotoFlexFontFamily = FontFamily(
+    Font(
+        resId = R.font.roboto_flex_variable_font
+    )
 )

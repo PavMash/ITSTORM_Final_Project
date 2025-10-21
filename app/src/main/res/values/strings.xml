@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Final Project</string>
+
+    <!--Cross-screen elements-->
+    <string name="app_title">NYTIMES</string>
+    <string name="logo_image_description">circular progress bar</string>
+    <string name="weather_page_navigation_text">Погода</string>
+    <string name="news_page_navigation_text">Новости</string>
+    <string name="favourites_page_navigation_text">Избранное</string>
+
+    <!--Slash screen-->
+    <string name="app_version">1.0.41</string>
+
+    <!--Authentication Screen-->
+    <string name="password_visibility_description">password visibility button</string>
+    <string name="login_textfield_label">Логин</string>
+    <string name="password_textfield_label">Пароль</string>
+    <string name="enter_button_text">ВОЙТИ</string>
+    <string name="skip_authorization_button_text">Продолжить без авторизации</string>
 </resources>

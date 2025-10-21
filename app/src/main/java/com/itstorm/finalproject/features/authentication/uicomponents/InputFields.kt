@@ -1,0 +1,90 @@
+package com.itstorm.finalproject.features.authentication.uicomponents
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import com.example.itstorm.features.authentication.presentation.components.ErrorMessage
+import com.itstorm.core_domain.models.user.UserValidationResult
+import com.itstorm.finalproject.R
+import com.itstorm.finalproject.sharedui.components.TextFieldLabel
+import com.itstorm.finalproject.sharedui.ui.theme.Black
+import com.itstorm.finalproject.sharedui.ui.theme.Grey34
+import com.itstorm.finalproject.sharedui.ui.theme.Red0C
+
+@Composable
+fun InputFields(
+    modifier: Modifier = Modifier,
+    login: String,
+    password: String,
+    loginErr: UserValidationResult,
+    passwordErr: UserValidationResult,
+    isPasswordVisible: Boolean,
+    onPasswordVisibilityChange: (Boolean) -> Unit,
+    onLoginChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = login,
+            label = { TextFieldLabel(
+                stringResource(R.string.login_textfield_label)) },
+            onValueChange = onLoginChange,
+            isError = (loginErr != UserValidationResult.Valid),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Black,
+                unfocusedContainerColor = Black,
+                errorContainerColor = Black,
+                unfocusedIndicatorColor = Grey34,
+                focusedIndicatorColor = Grey34,
+                errorIndicatorColor = Red0C
+            )
+        )
+
+        if (loginErr != UserValidationResult.Valid) {
+            ErrorMessage(validRes = loginErr)
+        }
+
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = password,
+            label = { TextFieldLabel(
+                    stringResource(R.string.password_textfield_label)) },
+            onValueChange = onPasswordChange,
+            isError = (passwordErr != UserValidationResult.Valid),
+            visualTransformation = if (isPasswordVisible)
+                VisualTransformation.None
+            else PasswordVisualTransformation('\u002A'),
+            trailingIcon = {
+                PasswordVisibilityButton(
+                    isPasswordVisible = isPasswordVisible,
+                    onPasswordVisibilityChange = onPasswordVisibilityChange
+                )
+            },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Black,
+                unfocusedContainerColor = Black,
+                errorContainerColor = Black,
+                unfocusedIndicatorColor = Grey34,
+                focusedIndicatorColor = Grey34,
+                errorIndicatorColor = Red0C
+            ),
+        )
+
+        if (passwordErr != UserValidationResult.Valid) {
+            ErrorMessage(validRes = passwordErr)
+        }
+    }
+}
