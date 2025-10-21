@@ -64,6 +64,7 @@ class AuthenticationStoreFactory(
                         dispatch(Msg.PasswordValidated(newPassword = state.password,
                             validationRes = UserValidationResult.WrongPassword))
                     } else {
+                        userRepo.updateOnlineStatus(user.id)
                         publish(Label.EnterApp(user))
                     }
                 }

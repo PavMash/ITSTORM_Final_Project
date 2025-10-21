@@ -1,28 +1,40 @@
 package com.itstorm.finalproject.root
 
 import android.content.Context
+import androidx.room.Room
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.pushToFront
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
+import com.itstorm.core_data.db.AppDataBase
 import com.itstorm.core_data.repositories.UserRepositoryImpl
 import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_domain.models.user.UserRole
 import com.itstorm.finalproject.features.authentication.view.DefaultAuthenticationComponent
 import com.itstorm.finalproject.root.RootComponent.Config
 import com.itstorm.finalproject.root.RootComponent.Child
 import com.itstorm.finalproject.root.flow.admin.DefaultAdminFlowComponent
 import com.itstorm.finalproject.root.flow.user.DefaultUserFlowComponent
 import com.itstorm.finalproject.root.splash.DefaultSplashComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DefaultRootComponent(
-    private val appContext: Context,
+    appContext: Context,
     componentContext: ComponentContext
 ): RootComponent, ComponentContext by componentContext  {
 
-    private val userRepository = UserRepositoryImpl()
+    private val db = Room.databaseBuilder(
+        appContext,
+        AppDataBase::class.java,
+        "database"
+    ).fallbackToDestructiveMigration(false).build()
+    private val userRepository = UserRepositoryImpl(db.userDao())
     private val navigation = StackNavigation<Config>()
 
     override val stack: Value<ChildStack<*, Child>> = childStack(
@@ -40,7 +52,7 @@ class DefaultRootComponent(
         is Config.Splash -> Child.Splash(
             component = DefaultSplashComponent(
                 onFinished = ::onSplashFinished,
-                preloadAppResources = { preloadResources(appContext) },
+                preloadAppResources = ::preloadResources,
                 componentContext = childContext
             ))
 
@@ -61,7 +73,8 @@ class DefaultRootComponent(
 
         is Config.AdminFlow -> Child.AdminFlow(
             component = DefaultAdminFlowComponent(
-                componentContext = childContext
+                componentContext = childContext,
+                userRepo = userRepository
             )
         )
     }
@@ -70,12 +83,17 @@ class DefaultRootComponent(
         navigation.replaceCurrent(Config.Authentication)
     }
 
-    private fun preloadResources(context: Context) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            repository.preloadNewsIfEmpty(context)
-//        }
+    private fun preloadResources() {
+        CoroutineScope(Dispatchers.IO).launch {
+            userRepository.preloadIfEmpty()
+        }
     }
 
-    private fun onEnterApp(user: User) {}
-
+    private fun onEnterApp(user: User) {
+        if(user.role == UserRole.User || user.role == UserRole.Guest) {
+            navigation.pushToFront(Config.UserFlow)
+        } else {
+            navigation.pushToFront(Config.AdminFlow)
+        }
+    }
 }
