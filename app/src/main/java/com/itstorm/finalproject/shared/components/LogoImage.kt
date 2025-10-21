@@ -1,4 +1,4 @@
-package com.itstorm.finalproject.sharedui.components
+package com.itstorm.finalproject.shared.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

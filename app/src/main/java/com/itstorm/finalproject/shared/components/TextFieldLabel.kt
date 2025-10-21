@@ -1,11 +1,11 @@
-package com.itstorm.finalproject.sharedui.components
+package com.itstorm.finalproject.shared.components
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.itstorm.finalproject.sharedui.ui.theme.Grey67
-import com.itstorm.finalproject.sharedui.ui.theme.robotoFlexFontFamily
+import com.itstorm.finalproject.shared.ui.theme.Grey67
+import com.itstorm.finalproject.shared.ui.theme.robotoFlexFontFamily
 
 @Composable
 fun TextFieldLabel(label: String) {

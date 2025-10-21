@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.itstorm.finalproject.sharedui.components.LogoImage
-import com.itstorm.finalproject.sharedui.components.TitleText
-import com.itstorm.finalproject.sharedui.ui.theme.GreyE5
+import com.itstorm.finalproject.shared.components.LogoImage
+import com.itstorm.finalproject.shared.components.TitleText
+import com.itstorm.finalproject.shared.ui.theme.GreyE5
 
 @Composable
 fun TextWithLogo(

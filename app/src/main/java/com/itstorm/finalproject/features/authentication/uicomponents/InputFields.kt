@@ -11,13 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import com.example.itstorm.features.authentication.presentation.components.ErrorMessage
 import com.itstorm.core_domain.models.user.UserValidationResult
 import com.itstorm.finalproject.R
-import com.itstorm.finalproject.sharedui.components.TextFieldLabel
-import com.itstorm.finalproject.sharedui.ui.theme.Black
-import com.itstorm.finalproject.sharedui.ui.theme.Grey34
-import com.itstorm.finalproject.sharedui.ui.theme.Red0C
+import com.itstorm.finalproject.shared.components.TextFieldLabel
+import com.itstorm.finalproject.shared.ui.theme.Black
+import com.itstorm.finalproject.shared.ui.theme.Grey34
+import com.itstorm.finalproject.shared.ui.theme.Red0C
 
 @Composable
 fun InputFields(

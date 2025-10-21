@@ -7,8 +7,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.itstorm.features.authentication.domain.toErrMessage
 import com.itstorm.core_domain.models.user.UserValidationResult
-import com.itstorm.finalproject.sharedui.ui.theme.Red00
-import com.itstorm.finalproject.sharedui.ui.theme.robotoFlexFontFamily
+import com.itstorm.finalproject.shared.ui.theme.Red00
+import com.itstorm.finalproject.shared.ui.theme.robotoFlexFontFamily
 
 @Composable
 fun ErrorMessage(

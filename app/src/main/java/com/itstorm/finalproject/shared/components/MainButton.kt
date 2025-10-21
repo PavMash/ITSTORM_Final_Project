@@ -1,4 +1,4 @@
-package com.itstorm.finalproject.sharedui.components
+package com.itstorm.finalproject.shared.components
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -9,11 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.itstorm.finalproject.sharedui.ui.theme.Grey1A
-import com.itstorm.finalproject.sharedui.ui.theme.Grey34
-import com.itstorm.finalproject.sharedui.ui.theme.Grey67
-import com.itstorm.finalproject.sharedui.ui.theme.GreyE5
-import com.itstorm.finalproject.sharedui.ui.theme.robotoFlexFontFamily
+import com.itstorm.finalproject.shared.ui.theme.Grey1A
+import com.itstorm.finalproject.shared.ui.theme.Grey34
+import com.itstorm.finalproject.shared.ui.theme.Grey67
+import com.itstorm.finalproject.shared.ui.theme.GreyE5
+import com.itstorm.finalproject.shared.ui.theme.robotoFlexFontFamily
 
 @Composable
 fun MainButton(

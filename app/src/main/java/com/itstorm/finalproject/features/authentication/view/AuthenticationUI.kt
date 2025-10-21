@@ -19,8 +19,8 @@ import com.itstorm.core_domain.models.user.UserValidationResult
 import com.itstorm.finalproject.R
 import com.itstorm.finalproject.features.authentication.uicomponents.InputFields
 import com.itstorm.finalproject.features.authentication.uicomponents.TextWithLogo
-import com.itstorm.finalproject.sharedui.components.MainButton
-import com.itstorm.finalproject.sharedui.ui.theme.FinalProjectTheme
+import com.itstorm.finalproject.shared.components.MainButton
+import com.itstorm.finalproject.shared.ui.theme.FinalProjectTheme
 
 @Composable
 fun AuthenticationUI(component: AuthenticationComponent) {

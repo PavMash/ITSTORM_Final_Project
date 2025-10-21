@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.itstorm.core_domain.models.user.UserValidationResult
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore
-import com.itstorm.finalproject.sharedui.ui.theme.FinalProjectTheme
+import com.itstorm.finalproject.shared.ui.theme.FinalProjectTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Preview(

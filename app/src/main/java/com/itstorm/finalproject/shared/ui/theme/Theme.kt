@@ -1,4 +1,4 @@
-package com.itstorm.finalproject.sharedui.ui.theme
+package com.itstorm.finalproject.shared.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
