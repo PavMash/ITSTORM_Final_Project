@@ -9,6 +9,6 @@ data class User(
     val password: String,
     val isBlocked: Boolean,
     val isOnline: Boolean,
-    val role: UserRole
-    //val sessions: List<Session>
+    val role: UserRole,
+    val sessions: List<Session>
 )

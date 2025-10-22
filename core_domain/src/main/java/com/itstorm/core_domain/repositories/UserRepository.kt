@@ -12,5 +12,9 @@ interface UserRepository {
 
     suspend fun updateOnlineStatus(id: Long)
 
+    suspend fun addUser(user: User)
+
+    suspend fun clearAllUsers()
+
     suspend fun preloadIfEmpty()
 }

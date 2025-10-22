@@ -7,10 +7,13 @@ import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.itstorm.core_domain.models.user.SearchFilter
 import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_domain.models.user.UserRole
 import com.itstorm.core_domain.repositories.UserRepository
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore.Intent
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore.State
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore.Label
+import com.itstorm.finalproject.shared.utils.fillOrExtendColorList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AdminUserPanelStoreFactory(
@@ -51,6 +54,12 @@ class AdminUserPanelStoreFactory(
                     publish(Label.CreateUser)
                 is Intent.ClickSessions ->
                     publish(Label.ClickSessions)
+                is Intent.AddUser -> addUser(
+                    intent.login,
+                    intent.password,
+                    intent.phoneNumber
+                )
+
             }
 
         override fun executeAction(action: Action) =
@@ -60,7 +69,7 @@ class AdminUserPanelStoreFactory(
             }
 
         private fun searchForUser(searchParam: String) {
-            val phoneRegex = Regex("""\+\d{1,11}""")
+            val phoneRegex = Regex("""\+\d{0,11}""")
 
             if (phoneRegex.matches(searchParam)) {
                 dispatch(Msg.UsersFilteredByPartialPhoneNumber(phNum = searchParam))
@@ -82,6 +91,21 @@ class AdminUserPanelStoreFactory(
                 }
             }
         }
+
+        private fun addUser(login: String, password: String, phoneNumber: String) {
+            val user = User(
+                name = login,
+                phoneNumber = phoneNumber,
+                password = password,
+                isBlocked = false,
+                isOnline = false,
+                role = UserRole.User
+            )
+
+            scope.launch(Dispatchers.IO) {
+                userRepo.addUser(user)
+            }
+        }
     }
 
     private object ReducerImpl: Reducer<State, Msg> {
@@ -92,21 +116,29 @@ class AdminUserPanelStoreFactory(
                         users = msg.users,
                         filtered = msg.users.filterUsers(
                             type = filterType,
-                            filter = appliedFilter)
+                            filter = appliedFilter),
+                        avatarColors = fillOrExtendColorList(
+                            colors = avatarColors,
+                            numOfUsers = msg.users.size
+                        )
                     )
                 is Msg.UsersFilteredByPartialName ->
                     copy(
                         users = users,
                         filtered = users.filterUsers(
                             type = SearchFilter.Name,
-                            filter = msg.name)
+                            filter = msg.name),
+                        filterType = SearchFilter.Name,
+                        appliedFilter = msg.name
                     )
                 is Msg.UsersFilteredByPartialPhoneNumber ->
                     copy(
                         users = users,
                         filtered = users.filterUsers(
                             type = SearchFilter.Phone,
-                            filter = msg.phNum)
+                            filter = msg.phNum),
+                        filterType = SearchFilter.Phone,
+                        appliedFilter = msg.phNum
                     )
             }
 

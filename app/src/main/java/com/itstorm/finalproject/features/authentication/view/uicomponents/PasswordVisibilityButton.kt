@@ -1,4 +1,4 @@
-package com.itstorm.finalproject.features.authentication.uicomponents
+package com.itstorm.finalproject.features.authentication.view.uicomponents
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -9,6 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.itstorm.finalproject.R
+import com.itstorm.finalproject.shared.ui.theme.White
 
 @Composable
 fun PasswordVisibilityButton(
@@ -25,7 +26,8 @@ fun PasswordVisibilityButton(
             painter = if (isPasswordVisible)
                 painterResource(R.drawable.visibility_off)
             else painterResource(R.drawable.visibility_on),
-            contentDescription = stringResource(R.string.password_visibility_description)
+            contentDescription = stringResource(R.string.password_visibility_description),
+            tint = White
         )
     }
 }

@@ -26,7 +26,7 @@ fun AuthenticationUIPreview() {
                 )
             )
 
-            override fun onLoginValidate(login: String) {}
+            override fun onLoginChange(login: String) {}
             override fun onPasswordValidate(password: String) {}
             override fun onCredentialsSubmit() {}
             override fun onPasswordVisibilityChange(isVisible: Boolean) {}

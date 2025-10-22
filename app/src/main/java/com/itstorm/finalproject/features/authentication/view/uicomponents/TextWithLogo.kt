@@ -1,4 +1,4 @@
-package com.itstorm.finalproject.features.authentication.uicomponents
+package com.itstorm.finalproject.features.authentication.view.uicomponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

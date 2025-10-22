@@ -10,7 +10,7 @@ import com.itstorm.finalproject.features.authentication.store.AuthenticationStor
 interface AuthenticationStore: Store<Intent, AuthState, Label> {
 
     sealed interface Intent {
-        data class ValidateLogin(val login: String): Intent
+        data class ChangeLogin(val login: String): Intent
         data class ValidatePassword(val password: String): Intent
         data object SubmitLoginCredentials: Intent
         data class ChangePasswordVisibility(val isVisible: Boolean): Intent
@@ -19,8 +19,8 @@ interface AuthenticationStore: Store<Intent, AuthState, Label> {
     data class AuthState(
         val login: String = "",
         val password: String = "",
-        val passwordErrMessage: UserValidationResult = UserValidationResult.Valid,
-        val loginErrMessage: UserValidationResult = UserValidationResult.Valid,
+        val passwordErrMessage: UserValidationResult = UserValidationResult.Initial,
+        val loginErrMessage: UserValidationResult = UserValidationResult.Initial,
         val isPasswordVisible: Boolean = false
     )
 

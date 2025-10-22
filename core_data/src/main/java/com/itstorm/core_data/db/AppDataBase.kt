@@ -7,7 +7,7 @@ import com.itstorm.core_data.db.converters.UserConverters
 import com.itstorm.core_data.db.dao.UserDao
 import com.itstorm.core_data.db.entities.UserEntity
 
-@Database(entities = [UserEntity::class], version = 1)
+@Database(entities = [UserEntity::class], version = 3)
 @TypeConverters(UserConverters::class)
 abstract class AppDataBase: RoomDatabase() {
     abstract fun userDao(): UserDao

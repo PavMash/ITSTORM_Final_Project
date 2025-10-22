@@ -16,7 +16,7 @@ interface AdminUserPanelComponent {
 
     fun createUser()
 
-    fun clickSessions()
+    fun onClickSessions()
 
     fun changeUserBlockedStatus(id: Long)
 

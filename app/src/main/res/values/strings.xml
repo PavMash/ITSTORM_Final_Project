@@ -7,6 +7,9 @@
     <string name="weather_page_navigation_text">Погода</string>
     <string name="news_page_navigation_text">Новости</string>
     <string name="favourites_page_navigation_text">Избранное</string>
+    <string name="users_page_navigation_text">Пользователи</string>
+    <string name="sessions_page_navigation_text">Сессии</string>
+    <string name="close_icon_description">Закрыть</string>
 
     <!--Slash screen-->
     <string name="app_version">1.0.41</string>
@@ -17,4 +20,18 @@
     <string name="password_textfield_label">Пароль</string>
     <string name="enter_button_text">ВОЙТИ</string>
     <string name="skip_authorization_button_text">Продолжить без авторизации</string>
+
+    <!--Admin User Panel Screens-->
+    <string name="users_section_title">Пользователи</string>
+    <string name="user_creating_dialog_title">Создание пользователя</string>
+    <string name="phone_number_textfield_label">Номер телефона</string>
+    <string name="user_search_line_label">Найти пользователя</string>
+    <string name="user_creation_button_text">СОЗДАТЬ</string>
+    <string name="user_create_button_description">Добавить пользователя</string>
+    <string name="search_icon_description">Поиск пользователя</string>
+    <string name="online_status">Онлайн</string>
+    <string name="offline_status">Оффлайн</string>
+    <string name="block_icon">Заблокировать</string>
+    <string name="unblock_icon">Разблокировать</string>
+
 </resources>

@@ -7,7 +7,7 @@ import com.itstorm.core_domain.models.user.UserRole
 
 @Entity(tableName = "users",
     indices = [
-        Index(value = ["phone"], unique = true),
+        Index(value = ["phoneNumber"], unique = true),
         Index(value = ["name"], unique = true)
     ])
 data class UserEntity(

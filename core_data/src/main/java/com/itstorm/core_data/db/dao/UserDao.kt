@@ -33,8 +33,11 @@ interface UserDao {
     fun getAllExceptAdmin(role: UserRole = UserRole.Admin): Flow<List<UserEntity>>
 
     @Update
-    suspend fun update(updatedNews: UserEntity)
+    suspend fun update(updatedUser: UserEntity)
 
-    @Delete
+    @Query("DELETE FROM users WHERE id = :id")
     suspend fun deleteUserById(id: Long)
+
+    @Query("DELETE FROM users")
+    suspend fun clearAllUsers()
 }

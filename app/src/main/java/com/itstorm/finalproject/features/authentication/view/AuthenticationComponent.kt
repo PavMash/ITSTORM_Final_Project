@@ -12,7 +12,7 @@ interface AuthenticationComponent {
 
     fun onPasswordValidate(password: String)
 
-    fun onLoginValidate(login: String)
+    fun onLoginChange(login: String)
 
     fun onPasswordVisibilityChange(isVisible: Boolean)
 }

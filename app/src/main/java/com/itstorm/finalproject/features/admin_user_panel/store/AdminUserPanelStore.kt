@@ -1,5 +1,6 @@
 package com.itstorm.finalproject.features.admin_user_panel.store
 
+import androidx.compose.ui.graphics.Color
 import com.arkivanov.mvikotlin.core.store.Store
 import com.itstorm.core_domain.models.user.SearchFilter
 import com.itstorm.core_domain.models.user.User
@@ -13,13 +14,17 @@ interface AdminUserPanelStore: Store<Intent, State, Label> {
         data class ChangeUserBlockedStatus(val id: Long): Intent
         data class SearchForUser(val searchParameter: String): Intent
         data object ClickSessions: Intent
+
+        data class AddUser(val login: String,
+                           val password: String, val phoneNumber: String): Intent
     }
 
     data class State(
         val users: List<User> = emptyList(),
         val filtered: List<User> = emptyList(),
         val filterType: SearchFilter? = null,
-        val appliedFilter: String = ""
+        val appliedFilter: String = "",
+        val avatarColors: List<Color> = emptyList()
     )
 
     sealed interface Label {

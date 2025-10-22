@@ -85,6 +85,7 @@ class DefaultRootComponent(
 
     private fun preloadResources() {
         CoroutineScope(Dispatchers.IO).launch {
+            userRepository.clearAllUsers()
             userRepository.preloadIfEmpty()
         }
     }

@@ -53,8 +53,8 @@ class DefaultAuthenticationComponent(
         store.accept(Intent.ValidatePassword(password))
     }
 
-    override fun onLoginValidate(login: String) {
-        store.accept(Intent.ValidateLogin(login))
+    override fun onLoginChange(login: String) {
+        store.accept(Intent.ChangeLogin(login))
     }
 
     override fun onPasswordVisibilityChange(isVisible: Boolean) {

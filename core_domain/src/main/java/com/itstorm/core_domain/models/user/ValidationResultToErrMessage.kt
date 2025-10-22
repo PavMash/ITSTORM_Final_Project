@@ -1,6 +1,4 @@
-package com.example.itstorm.features.authentication.domain
-
-import com.itstorm.core_domain.models.user.UserValidationResult
+package com.itstorm.core_domain.models.user
 
 fun UserValidationResult.toErrMessage(): String =
     when(this) {
@@ -8,14 +6,13 @@ fun UserValidationResult.toErrMessage(): String =
             "Неверный логин"
         UserValidationResult.WrongPassword ->
             "Неверный пароль"
-        UserValidationResult.NonCyrillicLogin ->
-            "Логин пользователя должен быть на кириллице"
         UserValidationResult.NoLatinLettersInPw ->
             "Пароль должен содержать хотя бы одну латинскую букву"
         UserValidationResult.NoDigitsInPw ->
             "Пароль должен содержать хотя бы одну цифру"
         UserValidationResult.ShortPw ->
             "Пароль должен содержать не менее 6 символов"
-        UserValidationResult.Valid ->
-            ""
+        UserValidationResult.InvalidPhoneNumber ->
+            "Неверный формат номера телефона"
+        else -> ""
     }

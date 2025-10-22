@@ -17,6 +17,7 @@ import com.itstorm.finalproject.features.admin_user_panel.view.AdminUserPanelCom
 import com.itstorm.finalproject.features.admin_user_panel.view.AdminUserPanelComponent.Child
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.activate
+import com.arkivanov.decompose.router.slot.dismiss
 import com.itstorm.finalproject.features.create_user_dialog.view.DefaultCreateUserComponent
 import kotlinx.coroutines.launch
 
@@ -68,7 +69,7 @@ class DefaultAdminUserPanelComponent(
         store.accept(Intent.CreateUser)
     }
 
-    override fun clickSessions() {
+    override fun onClickSessions() {
         store.accept(Intent.ClickSessions)
     }
 
@@ -83,12 +84,23 @@ class DefaultAdminUserPanelComponent(
         is Config.CreateUser ->
             Child.CreateUser(
                 component = DefaultCreateUserComponent(
-                    componentContext = childContext
+                    componentContext = childContext,
+                    onClose = ::onCreationClose,
+                    onSubmit = ::onCreationSuccess
                 )
             )
     }
 
     private fun onCreateUserClick() {
         navigation.activate(Config.CreateUser)
+    }
+
+    private fun onCreationClose() {
+        navigation.dismiss()
+    }
+
+    private fun onCreationSuccess(login: String, password: String, phoneNumber: String) {
+        store.accept(Intent.AddUser(login, password, phoneNumber))
+        navigation.dismiss()
     }
 }

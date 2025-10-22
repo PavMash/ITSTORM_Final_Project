@@ -1,11 +1,11 @@
-package com.itstorm.finalproject.features.authentication.uicomponents
+package com.itstorm.finalproject.features.authentication.view.uicomponents
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.itstorm.features.authentication.domain.toErrMessage
+import com.itstorm.core_domain.models.user.toErrMessage
 import com.itstorm.core_domain.models.user.UserValidationResult
 import com.itstorm.finalproject.shared.ui.theme.Red00
 import com.itstorm.finalproject.shared.ui.theme.robotoFlexFontFamily

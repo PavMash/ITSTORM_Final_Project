@@ -38,13 +38,21 @@ class UserRepositoryImpl(
         }
     }
 
+    override suspend fun addUser(user: User) {
+        userDao.insertUser(user.toEntity())
+    }
+
+    override suspend fun clearAllUsers() {
+        userDao.clearAllUsers()
+    }
+
     override suspend fun preloadIfEmpty() {
         if (userDao.getAllExceptAdmin().first().isEmpty()) {
             userDao.insertAll(initialUsers.map { it.toEntity() })
         }
     }
 
-    private val initialUsers = listOf<User>(
+    private val initialUsers = listOf(
         User(
             name = "Вася",
             phoneNumber = "+71234567890",
@@ -72,7 +80,7 @@ class UserRepositoryImpl(
         User(
             name = "admin",
             phoneNumber = "+71111111111",
-            password = "admin_admin",
+            password = "admin1",
             isBlocked = false,
             isOnline = false,
             role = UserRole.Admin

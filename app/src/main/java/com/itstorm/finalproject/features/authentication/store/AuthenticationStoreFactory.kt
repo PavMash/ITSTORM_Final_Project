@@ -28,8 +28,9 @@ class AuthenticationStoreFactory(
         ) {}
 
     private sealed interface Msg {
+        data class LoginChanged(val newLogin: String): Msg
         data class LoginValidated(val newLogin: String,
-                                     val validationRes: UserValidationResult): Msg
+                                  val validationRes: UserValidationResult): Msg
         data class PasswordValidated(val newPassword: String,
                                      val validationRes: UserValidationResult): Msg
         data class PasswordVisibilityChanged(val isVisible: Boolean): Msg
@@ -42,10 +43,10 @@ class AuthenticationStoreFactory(
             when(intent) {
                 is Intent.SubmitLoginCredentials ->
                     submitCredentials()
+                is Intent.ChangeLogin ->
+                    dispatch(Msg.LoginChanged(intent.login))
                 is Intent.ValidatePassword ->
                     validatePassword(intent.password)
-                is Intent.ValidateLogin ->
-                    validateLogin(intent.login)
                 is Intent.ChangePasswordVisibility ->
                     dispatch(Msg.PasswordVisibilityChanged(intent.isVisible))
             }
@@ -77,38 +78,35 @@ class AuthenticationStoreFactory(
 
             when {
                 (!latinRegex.matches(password)) ->
-                    dispatch(Msg.PasswordValidated(
-                        newPassword = password,
-                        validationRes = UserValidationResult.NoLatinLettersInPw))
+                    dispatch(
+                        Msg.PasswordValidated(
+                            newPassword = password,
+                            validationRes = UserValidationResult.NoLatinLettersInPw
+                        )
+                    )
 
                 (!digitRegex.matches(password)) ->
-                    dispatch(Msg.PasswordValidated(
-                        newPassword = password,
-                        validationRes = UserValidationResult.NoDigitsInPw))
+                    dispatch(
+                        Msg.PasswordValidated(
+                            newPassword = password,
+                            validationRes = UserValidationResult.NoDigitsInPw
+                        )
+                    )
 
                 (password.length < 6) ->
-                    dispatch(Msg.PasswordValidated(
+                    dispatch(
+                        Msg.PasswordValidated(
+                            newPassword = password,
+                            validationRes = UserValidationResult.ShortPw
+                        )
+                    )
+
+                else -> dispatch(
+                    Msg.PasswordValidated(
                         newPassword = password,
-                        validationRes = UserValidationResult.ShortPw))
-
-                else -> dispatch(Msg.PasswordValidated(
-                    newPassword = password,
-                    validationRes = UserValidationResult.Valid))
-            }
-        }
-
-        private fun validateLogin(login: String) {
-            val cyrillicRegex = Regex("^[А-Яа-яЁё_]+$")
-
-            when {
-                (!cyrillicRegex.matches(login)) ->
-                    dispatch(Msg.LoginValidated(
-                        newLogin = login,
-                        validationRes = UserValidationResult.NonCyrillicLogin))
-
-                else -> dispatch(Msg.LoginValidated(
-                    newLogin = login,
-                    validationRes = UserValidationResult.Valid))
+                        validationRes = UserValidationResult.Valid
+                    )
+                )
             }
         }
     }
@@ -116,6 +114,14 @@ class AuthenticationStoreFactory(
     private object AuthenticationReducer: Reducer<AuthState, Msg> {
         override fun AuthState.reduce(msg: Msg): AuthState =
             when (msg) {
+                is Msg.LoginChanged ->
+                    copy(
+                        login = msg.newLogin,
+                        password = password,
+                        passwordErrMessage = passwordErrMessage,
+                        loginErrMessage = UserValidationResult.Valid,
+                        isPasswordVisible = isPasswordVisible,
+                    )
                 is Msg.LoginValidated ->
                     copy(
                         login = msg.newLogin,

@@ -17,16 +17,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.itstorm.core_domain.models.user.UserValidationResult
 import com.itstorm.finalproject.R
-import com.itstorm.finalproject.features.authentication.uicomponents.InputFields
-import com.itstorm.finalproject.features.authentication.uicomponents.TextWithLogo
+import com.itstorm.finalproject.features.authentication.view.uicomponents.InputFields
+import com.itstorm.finalproject.features.authentication.view.uicomponents.TextWithLogo
 import com.itstorm.finalproject.shared.components.MainButton
+import com.itstorm.finalproject.shared.ui.theme.Black
 import com.itstorm.finalproject.shared.ui.theme.FinalProjectTheme
 
 @Composable
 fun AuthenticationUI(component: AuthenticationComponent) {
     FinalProjectTheme {
         Scaffold(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            containerColor = Black
         ) { innerPadding ->
             AuthenticationScreen(component, innerPadding)
         }
@@ -62,7 +64,7 @@ fun AuthenticationScreen(
             passwordErr = state.passwordErrMessage,
             isPasswordVisible = state.isPasswordVisible,
             onPasswordVisibilityChange = component::onPasswordVisibilityChange,
-            onLoginChange = component::onLoginValidate,
+            onLoginChange = component::onLoginChange,
             onPasswordChange = component::onPasswordValidate
         )
 
