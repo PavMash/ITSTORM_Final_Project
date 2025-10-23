@@ -9,14 +9,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_domain.models.user.UserDomain
 import com.itstorm.finalproject.shared.components.AvatarWithName
 import com.itstorm.finalproject.shared.components.OnlineStausText
 
 @Composable
 fun UserListEntry(
     modifier: Modifier = Modifier,
-    user: User,
+    user: UserDomain,
     avatarColor: Color,
     onBlockClick: () -> Unit
 ) {

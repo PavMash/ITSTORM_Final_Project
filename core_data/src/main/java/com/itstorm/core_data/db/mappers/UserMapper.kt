@@ -1,22 +1,36 @@
 package com.itstorm.core_data.db.mappers
 
 import com.itstorm.core_data.db.entities.UserEntity
-import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_data.db.entities.UserWithSessions
+import com.itstorm.core_domain.models.user.UserDomain
+import com.itstorm.core_domain.models.user.UserWithSessionsDomain
 
-fun UserEntity.toUser(): User =
-    User(
+fun UserWithSessions.toDomain(): UserWithSessionsDomain =
+    UserWithSessionsDomain(
+        id = user.id,
+        name = user.name,
+        phoneNumber = user.phoneNumber,
+        password = user.password,
+        isBlocked = user.isBlocked,
+        isOnline = user.isOnline,
+        role = user.role,
+        sessions = sessions.map { it.toDomain() }
+    )
+
+fun UserEntity.toDomain(): UserDomain =
+    UserDomain(
         id = id,
         name = name,
         phoneNumber = phoneNumber,
         password = password,
         isBlocked = isBlocked,
         isOnline = isOnline,
-        role = role,
+        role = role
     )
 
-fun User.toEntity(): UserEntity =
+fun UserDomain.toEntity(): UserEntity =
     UserEntity(
-        id = if (id == 0L) 0L else id,
+        id = id,
         name = name,
         phoneNumber = phoneNumber,
         password = password,

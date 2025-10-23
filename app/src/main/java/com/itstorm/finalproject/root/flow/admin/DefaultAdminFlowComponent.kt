@@ -42,7 +42,8 @@ class DefaultAdminFlowComponent(
         is AdminConfig.SessionDashboard ->
             Child.SessionDashboard(
                 component = DefaultSessionDashboardComponent(
-                    componentContext = childContext
+                    componentContext = childContext,
+
                 )
             )
     }

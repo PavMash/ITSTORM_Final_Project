@@ -12,7 +12,7 @@ import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import com.itstorm.core_data.db.AppDataBase
 import com.itstorm.core_data.repositories.UserRepositoryImpl
-import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_domain.models.user.UserDomain
 import com.itstorm.core_domain.models.user.UserRole
 import com.itstorm.finalproject.features.authentication.view.DefaultAuthenticationComponent
 import com.itstorm.finalproject.root.RootComponent.Config
@@ -35,6 +35,8 @@ class DefaultRootComponent(
         "database"
     ).fallbackToDestructiveMigration(false).build()
     private val userRepository = UserRepositoryImpl(db.userDao())
+    private val sessionRepository =
+
     private val navigation = StackNavigation<Config>()
 
     override val stack: Value<ChildStack<*, Child>> = childStack(
@@ -90,7 +92,7 @@ class DefaultRootComponent(
         }
     }
 
-    private fun onEnterApp(user: User) {
+    private fun onEnterApp(user: UserDomain) {
         if(user.role == UserRole.User || user.role == UserRole.Guest) {
             navigation.pushToFront(Config.UserFlow)
         } else {

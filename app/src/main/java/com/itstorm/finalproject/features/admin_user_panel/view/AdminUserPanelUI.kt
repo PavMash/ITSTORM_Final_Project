@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_domain.models.user.UserDomain
 import com.itstorm.finalproject.features.admin_user_panel.view.uicomponents.SearchLine
 import com.itstorm.finalproject.shared.ui.theme.Black
 import com.itstorm.finalproject.shared.ui.theme.FinalProjectTheme
@@ -124,7 +124,7 @@ private fun UserPanelScreen(
 @Composable
 private fun UserList(
     modifier: Modifier = Modifier,
-    users: List<User>,
+    users: List<UserDomain>,
     avatarColors: List<Color>,
     onBlockClick: (Long) -> Unit
 ) {

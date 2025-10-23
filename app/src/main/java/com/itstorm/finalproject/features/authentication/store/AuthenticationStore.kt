@@ -1,8 +1,9 @@
 package com.itstorm.finalproject.features.authentication.store
 
 import com.arkivanov.mvikotlin.core.store.Store
-import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_domain.models.user.UserDomain
 import com.itstorm.core_domain.models.user.UserValidationResult
+import com.itstorm.core_domain.models.user.UserWithSessionsDomain
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore.Intent
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore.AuthState
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore.Label
@@ -25,6 +26,6 @@ interface AuthenticationStore: Store<Intent, AuthState, Label> {
     )
 
     sealed interface Label {
-        data class EnterApp(val user: User): Label
+        data class EnterApp(val user: UserWithSessionsDomain): Label
     }
 }

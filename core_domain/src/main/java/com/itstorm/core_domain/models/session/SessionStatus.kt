@@ -1,4 +1,4 @@
-package com.itstorm.core_domain.models.sesssion
+package com.itstorm.core_domain.models.session
 
 enum class SessionStatus {
     Running,

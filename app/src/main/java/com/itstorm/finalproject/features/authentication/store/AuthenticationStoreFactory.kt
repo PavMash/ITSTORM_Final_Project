@@ -5,7 +5,6 @@ import com.arkivanov.mvikotlin.core.store.SimpleBootstrapper
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import com.itstorm.core_domain.models.user.User
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore.Intent
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore.AuthState
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore.Label

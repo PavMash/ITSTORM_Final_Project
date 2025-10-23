@@ -6,7 +6,7 @@ import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.coroutines.labels
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
-import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_domain.models.user.UserDomain
 import com.itstorm.core_domain.repositories.UserRepository
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore.Intent
 import com.itstorm.finalproject.features.authentication.store.AuthenticationStore.AuthState
@@ -19,7 +19,7 @@ class DefaultAuthenticationComponent(
     private val storeFactory: StoreFactory,
     private val userRepo: UserRepository,
     componentContext: ComponentContext,
-    private val onEnterApp: (User) -> Unit
+    private val onEnterApp: (UserDomain) -> Unit
 ): AuthenticationComponent, ComponentContext by componentContext {
 
     val store = instanceKeeper.getStore {

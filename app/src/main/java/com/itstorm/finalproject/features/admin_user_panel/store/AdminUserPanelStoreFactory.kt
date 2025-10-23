@@ -6,8 +6,9 @@ import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.itstorm.core_domain.models.user.SearchFilter
-import com.itstorm.core_domain.models.user.User
+import com.itstorm.core_domain.models.user.UserDomain
 import com.itstorm.core_domain.models.user.UserRole
+import com.itstorm.core_domain.models.user.UserWithSessionsDomain
 import com.itstorm.core_domain.repositories.UserRepository
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore.Intent
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore.State
@@ -35,7 +36,7 @@ class AdminUserPanelStoreFactory(
     }
 
     private sealed interface Msg {
-        data class UsersLoaded(val users: List<User>): Msg
+        data class UsersLoaded(val users: List<UserWithSessionsDomain>): Msg
         data class UsersFilteredByPartialPhoneNumber(val phNum: String): Msg
         data class UsersFilteredByPartialName(val name: String): Msg
     }
@@ -93,7 +94,7 @@ class AdminUserPanelStoreFactory(
         }
 
         private fun addUser(login: String, password: String, phoneNumber: String) {
-            val user = User(
+            val user = UserDomain(
                 name = login,
                 phoneNumber = phoneNumber,
                 password = password,
@@ -142,7 +143,8 @@ class AdminUserPanelStoreFactory(
                     )
             }
 
-        private fun List<User>.filterUsers(type: SearchFilter?, filter: String): List<User> =
+        private fun List<UserWithSessionsDomain>.filterUsers(type: SearchFilter?, filter: String)
+        : List<UserWithSessionsDomain> =
             when(type) {
                 SearchFilter.Name ->
                     this.filter { it.name.contains(filter, ignoreCase = true) }

@@ -1,8 +1,8 @@
 package com.itstorm.core_domain.models.user
 
-import com.itstorm.core_domain.models.sesssion.Session
+import com.itstorm.core_domain.models.session.SessionDomain
 
-data class User(
+data class UserWithSessionsDomain(
     val id: Long = 0L,
     val name: String,
     val phoneNumber: String,
@@ -10,5 +10,5 @@ data class User(
     val isBlocked: Boolean,
     val isOnline: Boolean,
     val role: UserRole,
-    val sessions: List<Session>
+    val sessions: List<SessionDomain>
 )
