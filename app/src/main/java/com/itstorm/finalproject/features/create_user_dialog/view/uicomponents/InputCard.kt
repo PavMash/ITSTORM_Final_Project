@@ -65,7 +65,7 @@ fun InputCard(
             InputFieldWithValidation(
                 modifier = Modifier.fillMaxWidth(),
                 value = login,
-                validRes = UserValidationResult.Valid,
+                usrValidRes = UserValidationResult.Valid,
                 onValueChange = onLoginChange,
                 label = stringResource(R.string.login_textfield_label),
                 backgroundColor = Grey1A
@@ -74,7 +74,7 @@ fun InputCard(
             InputFieldWithValidation(
                 modifier = Modifier.fillMaxWidth(),
                 value = phoneNumber,
-                validRes = phoneNumberValidRes,
+                usrValidRes = phoneNumberValidRes,
                 onValueChange = onPhoneNumberChange,
                 label = stringResource(R.string.phone_number_textfield_label),
                 backgroundColor = Grey1A
@@ -85,13 +85,13 @@ fun InputCard(
                 ErrorMessage(
                     modifier = Modifier.align(Alignment.Start)
                         .padding(start = 12.dp),
-                    validRes = phoneNumberValidRes)
+                    usrValidRes = phoneNumberValidRes)
             }
 
             InputFieldWithValidation(
                 modifier = Modifier.fillMaxWidth(),
                 value = password,
-                validRes = passwordValidRes,
+                usrValidRes = passwordValidRes,
                 onValueChange = onPasswordChange,
                 label = stringResource(R.string.password_textfield_label),
                 backgroundColor = Grey1A
@@ -102,7 +102,7 @@ fun InputCard(
                 ErrorMessage(
                     modifier = Modifier.align(Alignment.Start)
                         .padding(start = 12.dp),
-                    validRes = passwordValidRes)
+                    usrValidRes = passwordValidRes)
             }
 
             Spacer(modifier = Modifier.height(12.dp))

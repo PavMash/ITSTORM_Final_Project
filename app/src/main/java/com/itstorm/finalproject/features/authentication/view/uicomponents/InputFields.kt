@@ -64,7 +64,7 @@ fun InputFields(
             ErrorMessage(
                 modifier = Modifier.align(Alignment.Start)
                     .padding(start = 12.dp),
-                validRes = loginErr)
+                usrValidRes = loginErr)
         }
 
         TextField(
@@ -102,7 +102,7 @@ fun InputFields(
             ErrorMessage(
                 modifier = Modifier.align(Alignment.Start)
                     .padding(start = 12.dp),
-                validRes = passwordErr)
+                usrValidRes = passwordErr)
         }
     }
 }

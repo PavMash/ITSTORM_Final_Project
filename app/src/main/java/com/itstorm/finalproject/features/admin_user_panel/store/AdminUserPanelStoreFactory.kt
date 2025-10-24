@@ -13,7 +13,6 @@ import com.itstorm.core_domain.repositories.UserRepository
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore.Intent
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore.State
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore.Label
-import com.itstorm.finalproject.shared.utils.fillOrExtendColorList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -117,11 +116,7 @@ class AdminUserPanelStoreFactory(
                         users = msg.users,
                         filtered = msg.users.filterUsers(
                             type = filterType,
-                            filter = appliedFilter),
-                        avatarColors = fillOrExtendColorList(
-                            colors = avatarColors,
-                            numOfUsers = msg.users.size
-                        )
+                            filter = appliedFilter)
                     )
                 is Msg.UsersFilteredByPartialName ->
                     copy(

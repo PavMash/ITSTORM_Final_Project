@@ -1,4 +1,4 @@
-package com.itstorm.finalproject.features.admin_user_panel.view.uicomponents
+package com.itstorm.finalproject.shared.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -9,16 +9,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.itstorm.core_domain.models.user.UserDomain
-import com.itstorm.finalproject.shared.components.AvatarWithName
-import com.itstorm.finalproject.shared.components.OnlineStausText
+import com.itstorm.core_domain.models.user.UserWithSessionsDomain
+import com.itstorm.finalproject.features.admin_user_panel.view.uicomponents.BlockButton
 
 @Composable
 fun UserListEntry(
     modifier: Modifier = Modifier,
-    user: UserDomain,
+    user: UserWithSessionsDomain,
     avatarColor: Color,
-    onBlockClick: () -> Unit
+    containsBlockButton: Boolean,
+    onBlockClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier,
@@ -36,12 +36,14 @@ fun UserListEntry(
         ) {
             OnlineStausText(isOnline = user.isOnline)
 
-            Spacer(modifier = Modifier.width(16.dp))
+            if (containsBlockButton) {
+                Spacer(modifier = Modifier.width(16.dp))
 
-            BlockButton(
-                isBlocked = user.isBlocked,
-                onBlockClick = onBlockClick
-            )
+                BlockButton(
+                    isBlocked = user.isBlocked,
+                    onBlockClick = onBlockClick
+                )
+            }
         }
 
     }

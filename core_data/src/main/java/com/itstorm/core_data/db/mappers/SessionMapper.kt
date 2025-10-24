@@ -3,7 +3,7 @@ package com.itstorm.core_data.db.mappers
 import com.itstorm.core_data.db.entities.SessionEntity
 import com.itstorm.core_data.db.entities.SessionWithRelations
 import com.itstorm.core_domain.models.session.SessionDomain
-import com.itstorm.core_domain.models.session.SessionWithUsersDomain
+import com.itstorm.core_domain.models.session.SessionWithUserDomain
 
 fun SessionEntity.toDomain(): SessionDomain =
     SessionDomain(
@@ -13,14 +13,15 @@ fun SessionEntity.toDomain(): SessionDomain =
         end = end,
         mainTariffId = mainTariffId,
         currentTariffId = currentTariffId,
+        userId = userId,
         status = sessionStatus,
         sum = sum
     )
 
-fun SessionWithRelations.toDomain(): SessionWithUsersDomain =
-    SessionWithUsersDomain(
+fun SessionWithRelations.toDomain(): SessionWithUserDomain =
+    SessionWithUserDomain(
         id = session.id,
-        users = users.map { it.toDomain() },
+        user = user.toDomain(),
         station = station.toDomain(),
         start = session.start,
         end = session.end,
@@ -39,5 +40,6 @@ fun SessionDomain.toEntity(): SessionEntity =
         sum = sum,
         mainTariffId = mainTariffId,
         currentTariffId = currentTariffId,
-        stationId = stationId
+        stationId = stationId,
+        userId = userId
     )

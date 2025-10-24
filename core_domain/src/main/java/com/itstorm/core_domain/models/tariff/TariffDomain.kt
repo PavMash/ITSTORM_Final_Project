@@ -8,3 +8,12 @@ data class TariffDomain (
     val roundingStepMinutes: Int,
     val type: TariffType
 )
+
+fun TariffDomain.toText(): String =
+    when(title) {
+        "Student" -> "Студенческий"
+
+        "Regular" -> "Обычный"
+
+        else -> "Системный"
+    }

@@ -1,0 +1,10 @@
+package com.itstorm.finalproject.features.update_session_dialog.view
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+@Composable
+fun UpdateSessionDialogUI(
+    component: UpdateSessionComponent,
+    modifier: Modifier = Modifier
+) {}

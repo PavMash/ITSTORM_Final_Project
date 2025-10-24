@@ -32,7 +32,7 @@ class TariffRepositoryImpl(
     }
 
     override suspend fun preloadIfEmpty() {
-        if (!tariffDao.getAllTariffs().first().isEmpty()) {
+        if (tariffDao.getAllTariffs().first().isEmpty()) {
             tariffDao.insertAllTariffs(initialTariffs.map { it.toEntity() })
         }
     }

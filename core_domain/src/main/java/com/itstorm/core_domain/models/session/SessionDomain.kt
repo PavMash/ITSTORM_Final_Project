@@ -9,6 +9,7 @@ data class SessionDomain(
     val end: Instant,
     val mainTariffId: Long,
     val currentTariffId: Long,
+    val userId: Long,
     val status: SessionStatus,
     val sum: Int
 )

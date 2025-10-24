@@ -8,19 +8,16 @@ import com.itstorm.core_data.db.dao.SessionDao
 import com.itstorm.core_data.db.dao.StationDao
 import com.itstorm.core_data.db.dao.TariffDao
 import com.itstorm.core_data.db.dao.UserDao
-import com.itstorm.core_data.db.dao.UserSessionCrossRefDao
 import com.itstorm.core_data.db.entities.SessionEntity
 import com.itstorm.core_data.db.entities.StationEntity
 import com.itstorm.core_data.db.entities.TariffEntity
 import com.itstorm.core_data.db.entities.UserEntity
-import com.itstorm.core_data.db.entities.UserSessionCrossRef
 
 @Database(entities = [UserEntity::class,
     SessionEntity::class,
     TariffEntity::class,
-    StationEntity::class,
-    UserSessionCrossRef::class],
-    version = 3)
+    StationEntity::class],
+    version = 8)
 @TypeConverters(Converters::class)
 abstract class AppDataBase: RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -30,6 +27,4 @@ abstract class AppDataBase: RoomDatabase() {
     abstract fun tariffDao(): TariffDao
 
     abstract fun stationDao(): StationDao
-
-    abstract fun userSessionCrossRefDao(): UserSessionCrossRefDao
 }

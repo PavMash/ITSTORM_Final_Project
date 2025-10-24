@@ -4,5 +4,6 @@ enum class SessionStatus {
     Running,
     Paused,
     Finished,
-    Cancelled
+    Cancelled,
+    Scheduled
 }

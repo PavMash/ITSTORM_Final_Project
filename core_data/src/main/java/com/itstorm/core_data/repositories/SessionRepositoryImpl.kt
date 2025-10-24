@@ -1,27 +1,26 @@
 package com.itstorm.core_data.repositories
 
+import android.util.Log
+import androidx.room.Transaction
 import com.itstorm.core_data.db.dao.SessionDao
-import com.itstorm.core_data.db.dao.UserSessionCrossRefDao
 import com.itstorm.core_data.db.entities.SessionWithRelations
-import com.itstorm.core_data.db.entities.UserSessionCrossRef
 import com.itstorm.core_data.db.mappers.toDomain
 import com.itstorm.core_data.db.mappers.toEntity
 import com.itstorm.core_domain.models.session.SessionDomain
 import com.itstorm.core_domain.models.session.SessionStatus
-import com.itstorm.core_domain.models.session.SessionWithUsersDomain
+import com.itstorm.core_domain.models.session.SessionWithUserDomain
 import com.itstorm.core_domain.repositories.SessionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class SessionRepositoryImpl(
-    private val sessionDao: SessionDao,
-    private val userSessionDao: UserSessionCrossRefDao
+    private val sessionDao: SessionDao
 ): SessionRepository {
 
-    override fun getAllSessions(): Flow<List<SessionWithUsersDomain>> =
+    override fun getAllSessions(): Flow<List<SessionWithUserDomain>> =
         sessionDao.getAllSessions().map { it.map(SessionWithRelations::toDomain) }
 
-    override suspend fun getSessionById(id: Long): SessionWithUsersDomain? =
+    override suspend fun getSessionById(id: Long): SessionWithUserDomain? =
         sessionDao.getSessionById(id)?.toDomain()
 
     override suspend fun updateSessionStatus(id: Long, status: SessionStatus) {
@@ -38,7 +37,9 @@ class SessionRepositoryImpl(
         }
     }
 
-    override suspend fun createSession(session: SessionWithUsersDomain): Long {
+    @Transaction
+    override suspend fun createSession(session: SessionWithUserDomain): Long {
+        Log.d("sessionsDebug", "in repo")
         val sessionToInsert = SessionDomain(
             id = session.id,
             stationId = session.station.id,
@@ -46,21 +47,16 @@ class SessionRepositoryImpl(
             end = session.end,
             mainTariffId = session.mainTariff.id,
             currentTariffId = session.currentTariff.id,
+            userId = session.user.id,
             status = session.status,
             sum = session.sum
         )
-
-        val crossRefs = mutableListOf<UserSessionCrossRef>()
-        for (user in session.users) {
-            crossRefs.add(UserSessionCrossRef(
-                userId = user.id,
-                sessionId = session.id))
-        }
+        Log.d("sessionsDebug", "created domain")
+        Log.d("sessionsDebug", "mainTariffId=${session.mainTariff.id}, currentTariffId=${session.currentTariff.id}, stationId=${session.station.id}")
+        Log.d("sessionsDebug", "Users: ${session.user.id}")
 
         val insertResult = sessionDao.insertSession(sessionToInsert.toEntity())
-        if (insertResult != -1L) {
-            userSessionDao.insertAllCrossRefs(crossRefs)
-        }
+
         return insertResult
     }
 

@@ -5,9 +5,9 @@ import com.itstorm.core_domain.models.tariff.TariffDomain
 import com.itstorm.core_domain.models.user.UserDomain
 import java.time.Instant
 
-class SessionWithUsersDomain (
+class SessionWithUserDomain (
     val id: Long = 0L,
-    val users: List<UserDomain>,
+    val user: UserDomain,
     val station: StationDomain,
     val start: Instant,
     val end: Instant,

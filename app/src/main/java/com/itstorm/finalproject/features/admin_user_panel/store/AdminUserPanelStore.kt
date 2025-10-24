@@ -23,8 +23,7 @@ interface AdminUserPanelStore: Store<Intent, State, Label> {
         val users: List<UserWithSessionsDomain> = emptyList(),
         val filtered: List<UserWithSessionsDomain> = emptyList(),
         val filterType: SearchFilter? = null,
-        val appliedFilter: String = "",
-        val avatarColors: List<Color> = emptyList()
+        val appliedFilter: String = ""
     )
 
     sealed interface Label {

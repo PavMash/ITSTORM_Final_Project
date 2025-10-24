@@ -1,6 +1,7 @@
 package com.itstorm.finalproject.root
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -11,9 +12,14 @@ import com.arkivanov.decompose.router.stack.pushToFront
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import com.itstorm.core_data.db.AppDataBase
+import com.itstorm.core_data.repositories.SessionRepositoryImpl
+import com.itstorm.core_data.repositories.StationRepositoryImpl
+import com.itstorm.core_data.repositories.TariffRepositoryImpl
 import com.itstorm.core_data.repositories.UserRepositoryImpl
 import com.itstorm.core_domain.models.user.UserDomain
 import com.itstorm.core_domain.models.user.UserRole
+import com.itstorm.core_domain.models.user.UserWithSessionsDomain
+import com.itstorm.core_domain.repositories.StationRepository
 import com.itstorm.finalproject.features.authentication.view.DefaultAuthenticationComponent
 import com.itstorm.finalproject.root.RootComponent.Config
 import com.itstorm.finalproject.root.RootComponent.Child
@@ -35,7 +41,10 @@ class DefaultRootComponent(
         "database"
     ).fallbackToDestructiveMigration(false).build()
     private val userRepository = UserRepositoryImpl(db.userDao())
-    private val sessionRepository =
+    private val sessionRepository = SessionRepositoryImpl(
+        sessionDao = db.sessionDao())
+    private val stationRepository = StationRepositoryImpl(db.stationDao())
+    private val tariffRepository = TariffRepositoryImpl(db.tariffDao())
 
     private val navigation = StackNavigation<Config>()
 
@@ -76,7 +85,10 @@ class DefaultRootComponent(
         is Config.AdminFlow -> Child.AdminFlow(
             component = DefaultAdminFlowComponent(
                 componentContext = childContext,
-                userRepo = userRepository
+                userRepo = userRepository,
+                sessionRepo = sessionRepository,
+                stationRepo = stationRepository,
+                tariffRepo = tariffRepository
             )
         )
     }
@@ -87,12 +99,13 @@ class DefaultRootComponent(
 
     private fun preloadResources() {
         CoroutineScope(Dispatchers.IO).launch {
-            userRepository.clearAllUsers()
             userRepository.preloadIfEmpty()
+            stationRepository.preloadIfEmpty()
+            tariffRepository.preloadIfEmpty()
         }
     }
 
-    private fun onEnterApp(user: UserDomain) {
+    private fun onEnterApp(user: UserWithSessionsDomain) {
         if(user.role == UserRole.User || user.role == UserRole.Guest) {
             navigation.pushToFront(Config.UserFlow)
         } else {

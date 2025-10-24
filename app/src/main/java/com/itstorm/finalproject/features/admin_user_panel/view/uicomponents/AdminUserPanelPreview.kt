@@ -7,6 +7,7 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.itstorm.core_domain.models.user.UserDomain
 import com.itstorm.core_domain.models.user.UserRole
+import com.itstorm.core_domain.models.user.UserWithSessionsDomain
 import com.itstorm.finalproject.features.admin_user_panel.store.AdminUserPanelStore
 import com.itstorm.finalproject.features.admin_user_panel.view.AdminUserPanelComponent
 import com.itstorm.finalproject.features.admin_user_panel.view.AdminUserPanelUI
@@ -22,29 +23,32 @@ import kotlinx.coroutines.flow.StateFlow
 fun AdminUserPanelPreview() {
     val fakeComponent = object: AdminUserPanelComponent {
         val users = listOf(
-            UserDomain(
+            UserWithSessionsDomain(
                 name = "Вася",
                 phoneNumber = "+71234567890",
                 password = "pass12345",
                 isBlocked = false,
                 isOnline = false,
-                role = UserRole.User
+                role = UserRole.User,
+                sessions = emptyList()
             ),
-            UserDomain(
+            UserWithSessionsDomain(
                 name = "Ваня",
                 phoneNumber = "+91235671234",
                 password = "12345pass",
                 isBlocked = false,
                 isOnline = false,
-                role = UserRole.User
+                role = UserRole.User,
+                sessions = emptyList()
             ),
-            UserDomain(
+            UserWithSessionsDomain(
                 name = "James",
                 phoneNumber = "+13569023457",
                 password = "smart_pass1",
                 isBlocked = false,
                 isOnline = false,
-                role = UserRole.User
+                role = UserRole.User,
+                sessions = emptyList()
             )
         )
 
@@ -61,7 +65,7 @@ fun AdminUserPanelPreview() {
 
         override fun createUser() {}
 
-        override fun clickSessions() {}
+        override fun onClickSessions() {}
 
         override fun changeUserBlockedStatus(id: Long) {}
 

@@ -8,11 +8,9 @@ import com.itstorm.finalproject.shared.ui.theme.White
 import com.itstorm.finalproject.shared.ui.theme.Yellow93
 import kotlin.random.Random
 
-fun randomColorFromPool(): Color {
+fun randomColorFromPool(userId: Int): Color {
     val pool = listOf(White, Yellow93, Green51, PurpleFF, CyanFF)
-
-    val random = Random(System.currentTimeMillis())
-    val randomColor = pool[random.nextInt(pool.size)]
+    val randomColor = pool[userId % pool.size]
 
     return randomColor
 }

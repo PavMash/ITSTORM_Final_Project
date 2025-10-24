@@ -9,3 +9,15 @@ data class UserDomain(
     val isOnline: Boolean,
     val role: UserRole
 )
+
+fun UserDomain.toUserWithSessions(): UserWithSessionsDomain =
+    UserWithSessionsDomain(
+        id = id,
+        name = name,
+        phoneNumber = phoneNumber,
+        password = password,
+        isBlocked = isBlocked,
+        isOnline = isOnline,
+        role = role,
+        sessions = emptyList()
+    )

@@ -1,16 +1,16 @@
 package com.itstorm.finalproject.features.session_dashboard.store
 
+import android.util.Log
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.SimpleBootstrapper
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import com.itstorm.core_domain.models.session.SessionDomain
+import com.itstorm.core_domain.models.session.SessionWithUserDomain
 import com.itstorm.core_domain.repositories.SessionRepository
 import com.itstorm.finalproject.features.session_dashboard.store.SessionDashboardStore.Intent
 import com.itstorm.finalproject.features.session_dashboard.store.SessionDashboardStore.State
 import com.itstorm.finalproject.features.session_dashboard.store.SessionDashboardStore.Label
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SessionDashboardStoreFactory(
@@ -23,7 +23,7 @@ class SessionDashboardStoreFactory(
         initialState = State(),
         bootstrapper = SimpleBootstrapper(Action.LoadSessions),
         executorFactory = { ExecutorImpl(sessionRepo) },
-        reducer = TODO()
+        reducer = ReducerImpl
     ){}
 
     private sealed interface Action {
@@ -31,7 +31,7 @@ class SessionDashboardStoreFactory(
     }
 
     private sealed interface Msg {
-        data class SessionsLoaded(val sessions: List<SessionDomain>): Msg
+        data class SessionsLoaded(val sessions: List<SessionWithUserDomain>): Msg
     }
 
     private class ExecutorImpl(
@@ -42,7 +42,7 @@ class SessionDashboardStoreFactory(
                 is Intent.CreateSession ->
                     publish(Label.CreateSession)
                 is Intent.UpdateSessionInfo ->
-                    publish(Label.UpdateSessionInfo)
+                    publish(Label.UpdateSessionInfo(intent.id))
                 is Intent.UserClick ->
                     publish(Label.UsersClick)
             }
@@ -54,7 +54,7 @@ class SessionDashboardStoreFactory(
             }
 
         private fun loadSessions() {
-            scope.launch(Dispatchers.IO) {
+            scope.launch {
                 sessionRepo.getAllSessions().collect { sessions ->
                     dispatch(Msg.SessionsLoaded(sessions))
                 }
@@ -65,8 +65,10 @@ class SessionDashboardStoreFactory(
     private object ReducerImpl: Reducer<State, Msg> {
         override fun State.reduce(msg: Msg): State =
             when(msg) {
-                is Msg.SessionsLoaded ->
-                    copy(sessions = msg.sessions)
+                is Msg.SessionsLoaded -> {
+                    Log.d("sessionsDebug", "${msg.sessions}")
+                    copy(sessions = msg.sessions.sortedByDescending { it.start })
+                }
             }
     }
 }

@@ -4,11 +4,15 @@ import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
 import com.itstorm.finalproject.features.create_session_dialog.view.CreateSessionComponent
 import com.itstorm.finalproject.features.update_session_dialog.view.UpdateSessionComponent
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.serialization.Serializable
+import com.itstorm.finalproject.features.session_dashboard.store.SessionDashboardStore.State
 
 interface SessionDashboardComponent {
 
     val slot: Value<ChildSlot<*, Child>>
+
+    val model: StateFlow<State>
 
     fun clickUsers()
 

@@ -7,7 +7,7 @@ class StationWithSessions(
     @Embedded val station: StationEntity,
 
     @Relation(
-        parentColumn = "code",
+        parentColumn = "id",
         entityColumn = "stationId"
     )
     val sessions: List<SessionEntity>

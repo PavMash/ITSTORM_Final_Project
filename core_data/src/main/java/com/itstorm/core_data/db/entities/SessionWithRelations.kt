@@ -1,7 +1,6 @@
 package com.itstorm.core_data.db.entities
 
 import androidx.room.Embedded
-import androidx.room.Junction
 import androidx.room.Relation
 
 
@@ -22,18 +21,13 @@ data class SessionWithRelations(
 
     @Relation(
         parentColumn = "stationId",
-        entityColumn = "code"
+        entityColumn = "id"
     )
     val station: StationEntity,
 
     @Relation(
-        parentColumn = "id",
-        entityColumn = "id",
-        associateBy = Junction(
-            value = UserSessionCrossRef::class,
-            parentColumn = "sessionId",
-            entityColumn = "userId"
-        )
+        parentColumn = "userId",
+        entityColumn = "id"
     )
-    val users: List<UserEntity>
+    val user: UserEntity
 )

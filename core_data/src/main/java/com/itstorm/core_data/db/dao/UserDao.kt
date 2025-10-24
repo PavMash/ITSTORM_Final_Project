@@ -2,7 +2,6 @@ package com.itstorm.core_data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.Companion.ABORT
 import androidx.room.OnConflictStrategy.Companion.IGNORE
 import androidx.room.Query
 import androidx.room.Transaction

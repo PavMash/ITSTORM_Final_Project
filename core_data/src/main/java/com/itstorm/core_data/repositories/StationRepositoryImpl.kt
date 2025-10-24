@@ -34,7 +34,7 @@ class StationRepositoryImpl(
     }
 
     override suspend fun preloadIfEmpty() {
-        if (!stationDao.getAllStations().first().isEmpty()) {
+        if (stationDao.getAllStations().first().isEmpty()) {
             stationDao.insertAllStations(initialStations.map { it.toEntity() })
         }
     }

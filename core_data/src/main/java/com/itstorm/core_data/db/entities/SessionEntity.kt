@@ -24,9 +24,16 @@ import java.time.Instant
 
         ForeignKey(
             entity = StationEntity::class,
-            parentColumns = ["code"],
+            parentColumns = ["id"],
             childColumns = ["stationId"],
-            onDelete = SET_NULL)
+            onDelete = SET_NULL),
+
+        ForeignKey(
+            entity = UserEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["userId"],
+            onDelete = SET_NULL
+        )
     ]
 )
 data class SessionEntity(
@@ -37,5 +44,6 @@ data class SessionEntity(
     val sum: Int,
     val mainTariffId: Long,
     val currentTariffId: Long,
-    val stationId: Long
+    val stationId: Long,
+    val userId: Long
 )

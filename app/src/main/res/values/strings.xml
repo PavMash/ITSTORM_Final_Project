@@ -34,4 +34,14 @@
     <string name="block_icon">Заблокировать</string>
     <string name="unblock_icon">Разблокировать</string>
 
+    <!--Session Dashboard Screens-->
+    <string name="add_session_button">Добавить сессию</string>
+    <string name="update_session_button">Редактировать сессию</string>
+    <string name="date_textfield_label">Дата, дд.мм</string>
+    <string name="time_textfield_label">Время, чч:мм</string>
+    <string name="duration_textfield_label">Длительность, ч</string>
+    <string name="station_dropdown_label">Станция</string>
+    <string name="tariff_dropdown_label">Тариф</string>
+    <string name="session_creating_title">Создание сессии</string>
+
 </resources>

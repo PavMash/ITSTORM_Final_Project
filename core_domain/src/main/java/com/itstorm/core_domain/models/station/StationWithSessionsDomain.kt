@@ -7,3 +7,11 @@ data class StationWithSessionsDomain(
     val code: String,
     val sessions: List<SessionDomain>
 )
+
+fun StationWithSessionsDomain.toStationDomain(): StationDomain =
+    StationDomain(
+        id = id,
+        code = code
+    )
+
+fun StationWithSessionsDomain.toText(): String = code

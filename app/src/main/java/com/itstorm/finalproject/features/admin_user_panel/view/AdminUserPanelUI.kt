@@ -25,18 +25,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.itstorm.core_domain.models.user.UserDomain
+import com.itstorm.core_domain.models.user.UserWithSessionsDomain
 import com.itstorm.finalproject.features.admin_user_panel.view.uicomponents.SearchLine
 import com.itstorm.finalproject.shared.ui.theme.Black
 import com.itstorm.finalproject.shared.ui.theme.FinalProjectTheme
-import com.itstorm.finalproject.features.admin_user_panel.view.uicomponents.TopBar
 import com.itstorm.finalproject.shared.components.CustomHorizontalDivider
 import com.itstorm.finalproject.R
-import com.itstorm.finalproject.features.admin_user_panel.view.uicomponents.UserListEntry
+import com.itstorm.finalproject.shared.components.UserListEntry
 import com.itstorm.finalproject.root.helper_enums.AdminHostingScreen
 import com.itstorm.finalproject.shared.components.AdminBottomNavBar
 import com.itstorm.finalproject.features.admin_user_panel.view.AdminUserPanelComponent.Child
+import com.itstorm.finalproject.shared.components.TopSectionBar
 import com.itstorm.finalproject.features.create_user_dialog.view.CreateUserDialogUI
+import com.itstorm.finalproject.shared.utils.randomColorFromPool
 
 @Composable
 fun AdminUserPanelUI(component: AdminUserPanelComponent) {
@@ -93,10 +94,11 @@ private fun UserPanelScreen(
        horizontalAlignment = Alignment.CenterHorizontally
    ) {
 
-       TopBar(
+       TopSectionBar(
            modifier = Modifier.fillMaxWidth()
-               .padding(horizontal = 13.dp, vertical = 8.dp),
-           onCreateUser = component::createUser
+               .padding(horizontal = 13.dp, vertical = 12.dp),
+           sectionTitle = stringResource(R.string.users_section_title),
+           onClickPlus = component::createUser
        )
 
        CustomHorizontalDivider(modifier = Modifier.fillMaxWidth()
@@ -115,7 +117,6 @@ private fun UserPanelScreen(
            modifier = Modifier.fillMaxWidth()
                .padding(horizontal = 7.dp),
            users = state.filtered,
-           avatarColors = state.avatarColors,
            onBlockClick = component::changeUserBlockedStatus
        )
    }
@@ -124,8 +125,7 @@ private fun UserPanelScreen(
 @Composable
 private fun UserList(
     modifier: Modifier = Modifier,
-    users: List<UserDomain>,
-    avatarColors: List<Color>,
+    users: List<UserWithSessionsDomain>,
     onBlockClick: (Long) -> Unit
 ) {
     LazyColumn(
@@ -136,7 +136,8 @@ private fun UserList(
             UserListEntry(
                 modifier = Modifier.fillMaxWidth(),
                 user = item,
-                avatarColor = avatarColors[users.indexOf(item)],
+                avatarColor = randomColorFromPool(item.id.toInt()),
+                containsBlockButton = true,
                 onBlockClick = { onBlockClick(item.id) }
             )
 
