@@ -1,6 +1,5 @@
 package com.itstorm.core_data.repositories
 
-import android.util.Log
 import androidx.room.Transaction
 import com.itstorm.core_data.db.dao.SessionDao
 import com.itstorm.core_data.db.entities.SessionWithRelations
@@ -39,7 +38,6 @@ class SessionRepositoryImpl(
 
     @Transaction
     override suspend fun createSession(session: SessionWithUserDomain): Long {
-        Log.d("sessionsDebug", "in repo")
         val sessionToInsert = SessionDomain(
             id = session.id,
             stationId = session.station.id,
@@ -51,9 +49,6 @@ class SessionRepositoryImpl(
             status = session.status,
             sum = session.sum
         )
-        Log.d("sessionsDebug", "created domain")
-        Log.d("sessionsDebug", "mainTariffId=${session.mainTariff.id}, currentTariffId=${session.currentTariff.id}, stationId=${session.station.id}")
-        Log.d("sessionsDebug", "Users: ${session.user.id}")
 
         val insertResult = sessionDao.insertSession(sessionToInsert.toEntity())
 

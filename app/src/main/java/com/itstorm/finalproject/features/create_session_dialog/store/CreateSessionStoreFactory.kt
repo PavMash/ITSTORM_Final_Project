@@ -1,6 +1,5 @@
 package com.itstorm.finalproject.features.create_session_dialog.store
 
-import android.util.Log
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.SimpleBootstrapper
 import com.arkivanov.mvikotlin.core.store.Store
@@ -97,7 +96,6 @@ class CreateSessionStoreFactory(
                 is Intent.ChooseTariff -> chooseTariff(intent.id)
 
                 is Intent.CreateSession -> {
-                    Log.d("sessionsDebug", "createWillStartWorking")
                     createSession()}
 
                 is Intent.CloseDialog ->
@@ -207,30 +205,18 @@ class CreateSessionStoreFactory(
         }
 
         private fun createSession() {
-            //Log.d("sessionsDebug", "createStartedWorking")
             val state = state()
             val zoneId = ZoneId.systemDefault()
             val calculator = SessionTimeCalculator(zoneId)
-
-            Log.d("sessionsDebug", "about to convert time to local")
             val localTime = calculator.timeToLocal(state.time)
 
             if (localTime <= LocalTime.now()) {
                 dispatch(Msg.StartingTimeExpired)
             } else {
-                Log.d("sessionsDebug", "about to convert date to local")
-
                 val localDate = calculator.dateToLocalDate(state.date)
-
-                Log.d("sessionsDebug", "just converted all to local")
-
                 val start = calculator.startTimeToInstant(localDate, localTime)
-
-                Log.d("sessionsDebug", "just got start instant")
                 val end = calculator.calculateEndTime(start,
                     state.duration.toDouble())
-
-                Log.d("sessionsDebug", "just converted all staff")
 
                 state.includedUser?.let {
                     val session = SessionWithUserDomain(
@@ -243,13 +229,8 @@ class CreateSessionStoreFactory(
                         status = SessionStatus.Scheduled,
                         sum = 0
                     )
-
-                    Log.d("sessionsDebug", "session is about to send to repo")
-
                     scope.launch(Dispatchers.IO) {
-                        Log.d("sessionsDebug", "already in scope")
                         val sessionId = sessionRepo.createSession(session)
-                        Log.d("sessionsDebug", "sessionInserted: $sessionId")
                     }
                     publish(Label.CreateSession)
                 }
