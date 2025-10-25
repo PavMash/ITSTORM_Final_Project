@@ -2,6 +2,7 @@ package com.itstorm.core_domain.usecases
 
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -35,5 +36,12 @@ class SessionTimeCalculator(private val zoneId: ZoneId) {
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
         val localTime = LocalTime.parse(time, formatter)
         return localTime
+    }
+
+    fun instantToTimeString(time: Instant): String {
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        val localTime = LocalDateTime.ofInstant(time, zoneId)
+            .toLocalTime()
+        return localTime.format(formatter)
     }
 }

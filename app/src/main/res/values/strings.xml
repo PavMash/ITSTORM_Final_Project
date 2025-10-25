@@ -21,6 +21,26 @@
     <string name="enter_button_text">ВОЙТИ</string>
     <string name="skip_authorization_button_text">Продолжить без авторизации</string>
 
+    <!-- Weather Screen -->
+    <string name="city_textfield_label">Город</string>
+    <string name="temperature_textfield_label">Температура (°С)</string>
+    <string name="estimate_button_text">ОЦЕНИТЬ</string>
+    <string name="retry_estimation_button_text">СДЕЛАТЬ НОВЫЙ ЗАПРОС</string>
+    <string name="search_history_section_title">Недавно вы искали:</string>
+    <string name="search_history_placeholder_text">здесь появятся ваши предыдущие запросы</string>
+    <string name="temperature_icon_description_text">Температура</string>
+    <string name="verdict_template">Сейчас в г. </string>
+    <string name="time_text">Время</string>
+    <string name="session_timer_text">Ваша сессия длится с</string>
+
+    <!-- News Screens -->
+    <string name="clock_icon_description">Время</string>
+    <string name="time_to_read">Время чтения:</string>
+    <string name="read_icon_description">Прочитано</string>
+    <string name="unread_icon_description">Не прочитано</string>
+    <string name="move_from_favorites_icon_description">Убрать из избранных</string>
+    <string name="add_to_favorites_icon_description">Добавить в избранные</string>
+
     <!--Admin User Panel Screens-->
     <string name="users_section_title">Пользователи</string>
     <string name="user_creating_dialog_title">Создание пользователя</string>
@@ -43,5 +63,9 @@
     <string name="station_dropdown_label">Станция</string>
     <string name="tariff_dropdown_label">Тариф</string>
     <string name="session_creating_title">Создание сессии</string>
+
+    <!--Session Enter Restricted-->
+    <string name="session_enter_restricted_text">К сожалению, вас пока не добавили к текущей сессии, вернитесь позже</string>
+    <string name="no_access">Нет доступа</string>
 
 </resources>

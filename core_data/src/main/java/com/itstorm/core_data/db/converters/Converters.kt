@@ -1,6 +1,8 @@
 package com.itstorm.core_data.db.converters
 
 import androidx.room.TypeConverter
+import com.itstorm.core_domain.models.news.NewsCategory
+import com.itstorm.core_domain.models.news.NewsType
 import com.itstorm.core_domain.models.session.SessionStatus
 import com.itstorm.core_domain.models.tariff.TariffType
 import com.itstorm.core_domain.models.user.UserRole
@@ -32,4 +34,17 @@ class Converters {
     @TypeConverter
     fun stringToTariffType(type: String): TariffType = TariffType.valueOf(type)
 
+    @TypeConverter
+    fun newsTypeToString(type: NewsType?): String? = type?.name
+
+    @TypeConverter
+    fun stringToNewsType(str: String?): NewsType? =
+        str?.let { NewsType.valueOf(it) }
+
+    @TypeConverter
+    fun newsCategoryToString(type: NewsCategory?): String? = type?.name
+
+    @TypeConverter
+    fun stringToNewsCategory(str: String?): NewsCategory? =
+        str?.let { NewsCategory.valueOf(it) }
 }

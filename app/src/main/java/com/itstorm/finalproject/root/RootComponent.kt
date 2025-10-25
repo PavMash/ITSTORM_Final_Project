@@ -20,7 +20,9 @@ interface RootComponent {
         @Serializable
         data object AdminFlow: Config
         @Serializable
-        data object UserFlow: Config
+        data class UserFlow(val hasAccessToSession: Boolean,
+            val startTime: String,
+            val endTime: String): Config
     }
 
     sealed interface Child {
